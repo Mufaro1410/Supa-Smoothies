@@ -1,23 +1,7 @@
 import { Link } from "react-router-dom"
 import supabase from "../supabaseClient"
 
-export default function SmoothieCard({ smoothie }) {
-
-  const handleDelete = async (e) => {
-    const {data, error} = await supabase
-      .from("smoothies")
-      .delete()
-      .eq("id", smoothie.id)
-      .select()
-
-      if (error) {
-        console.log(error);
-      }
-
-      if (data) {
-        console.log(data);
-      }
-  }
+export default function SmoothieCard({ smoothie, onDelete}) {
 
   return (
     <div className="smoothie-card">
@@ -28,7 +12,7 @@ export default function SmoothieCard({ smoothie }) {
           <Link to={"/" + smoothie.id}>
             <i className="material-icons">edit</i>
           </Link>
-          <i className="material-icons" onClick={handleDelete}>delete</i>
+          <i className="material-icons" onClick={() => onDelete(smoothie.id)}>delete</i>
         </div>
     </div>
   )
